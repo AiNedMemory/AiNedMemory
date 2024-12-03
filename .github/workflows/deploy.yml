@@ -21,7 +21,7 @@ jobs:
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
-          cache-dependency-path: Website/package-lock.json
+          cache-dependency-path: Website/package.json
           node-version: 18
           cache: npm
 
