@@ -1,13 +1,13 @@
 ---
 title: Pynq-Z2 SD-Card Image
-sidebar_position: 2
+sidebar_position: 1
 ---
 
 # Pynq-Z2 SD-Card Image
 
 The AiNed Probabilistic-Memory Hardware-Simulator targets a [TUL
 Pynq-Z2](https://www.tulembedded.com/FPGA/ProductsPYNQ-Z2.html) board. This
-board is build around the Xilinx XC7Z020 Zynq FPGA SoC.
+board is built around the Xilinx XC7Z020 Zynq FPGA SoC.
 
 ![pynq](/img/pynq-z2.png)
 
@@ -18,7 +18,7 @@ website. This is based on [Ubuntu 22.04](https://ubuntu.com/download/desktop).
 ## Zynq system
 
 The Xilinx Zynq system is  split into two parts, the Processing System (PS)
-side is build around 2 ARM A9 core CPU cores running Linux and an FPGA region
+side is built around 2 ARM A9 core CPU cores running Linux and an FPGA region
 that can be freely programmed. The two regions are connected via an
 interconnect. This interconnect allows modules in the FPGA region to be made
 available in the memory map of the ARM cores. See [here](/#verilog-module) for

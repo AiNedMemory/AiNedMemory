@@ -1,6 +1,6 @@
 ---
 title: C library
-sidebar_position: 1
+sidebar_position: 2
 ---
 
 # C library
@@ -81,7 +81,7 @@ On initial bootup, this can take up to a minute.
 
 :::danger
 If the application is started without anything programmed in the FPGA region,
-the system will hang and requires a hard reset to recover.
+the system will hang and requires a power cycle to recover.
 :::
 
 ```bash
@@ -245,7 +245,7 @@ cd doxy
 make
 ```
 
-The documentation is build in the `documentation/html` directory.
+The documentation is built in the `documentation/html` directory.
 
 ### Running tests
 
