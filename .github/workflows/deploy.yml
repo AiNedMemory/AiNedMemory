@@ -8,11 +8,11 @@ on:
     # https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions#on
 
 jobs:
-  defaults:
-    run:
-      shell: bash
-      working-directory: ./Website
   build:
+    defaults:
+      run:
+        shell: bash
+        working-directory: ./Website
     name: Build Docusaurus
     runs-on: ubuntu-latest
     steps:
