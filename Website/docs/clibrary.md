@@ -182,7 +182,9 @@ The `clear` command just clears the memory region, it does not reset the random 
 If you want to restore the random generators, use the `restore` command to load a known state.
 :::
 
-Now we are going to force bits in the first part of the memory:
+Now we are going to force bits in the first part of the memory. The arguments
+for the set command are `row column value`, row and column start counting from
+0 and the value can be either 0 or 1:
 
 ```
 Command: set 0 0 1
@@ -194,7 +196,9 @@ Got command: 'set 7 7 0'
 Command:
 ```
 
-These changes are not yet written back, to write them back use the `commit` command.
+This, on a commit, forces the first bit on the first row to 1, the 6th bit on
+the 6th row to 1 and the 8th bit on the 8th row to 0. These changes are not yet
+written back, to write them back use the `commit` command.
 
 ```
 Got command: 'commit'
