@@ -11,9 +11,11 @@ board is built around the Xilinx XC7Z020 Zynq FPGA SoC.
 
 ![pynq](/img/pynq-z2.png)
 
-The SD-card image provided containing a Linux install based on the image
-provided by AMD for this board via the [pynq.io](http://www.pynq.io/boards.html)
-website. This is based on [Ubuntu 22.04](https://ubuntu.com/download/desktop).
+The SD-card image provided in this project containing a Linux install based on
+the image provided by AMD for this board via the
+[pynq.io](http://www.pynq.io/boards.html) website. This is based on [Ubuntu
+22.04](https://ubuntu.com/download/desktop). If using a different image, most
+of the instructions should apply.
 
 ## Zynq system
 
@@ -33,6 +35,33 @@ The image (bit file) that gets loaded into the FPGA region at startup is
 located in the `🗀 /boot/` directory and is loaded on startup from the `📄 /boot/boot.py`
 file.
 
+## Jumper setup
+
+Before being able to boot the SD-card image, it is important to make sure all the jumpers are configured correctly.
+
+![pynq](/img/pynq-jumper-z2.png)
+
+### Power Jumper
+
+The power selection jumper is located next to the two toggle switches on the
+board near the Micro-USB connector.
+This jumper allows to select between the barrel plug connector or power it via USB.
+We recommend to use USB to power the board. This is putting the jumper on the right position.
+
+![Power Jumper](/img/pynq-jumper-power.png)
+
+:::note
+The power jumper uses an uncommon pin spacing, be careful not to loose it.
+:::
+
+### Boot Jumper
+
+The boot selection jumper is located on the right of the board, next to the
+`Pynq-Z2` logo above the PMOD header.
+This jumper determines the boot-source, make sure the jumper is on the top (SD) position.
+
+![Pynq Boot Selector Jumper](/img/pynq-jumper-boot.png)
+
 ## Username and Password
 
 To login to the board either via the [serial port](#serial) or [SSH](#ssh), the credentials for the board are:
@@ -40,7 +69,7 @@ To login to the board either via the [serial port](#serial) or [SSH](#ssh), the 
 | Key      | Value    |
 |----------|----------|
 | Username | student  |
-| Password | password |
+| Password | student  |
 
 ## Login
 
