@@ -41,7 +41,11 @@ const config = {
     [
       'classic',
       /** @type {import('@docusaurus/preset-classic').Options} */
-      ({
+      (
+        {
+        theme: {
+          customCss: ['./custom.css'],
+        },
         docs: {
           routeBasePath: '/',
           sidebarPath: './sidebars.js',
@@ -62,6 +66,14 @@ const config = {
       navbar: {
         title: 'AiNed Memory',
         style: 'primary',
+        items: [
+            {
+              href: 'https://github.com/AiNedMemory/AiNedMemory',
+              position: 'right',
+              'aria-label': 'GitHub Repository',
+              'className': 'navbar--github-link',
+            },
+          ],
       },
     }),
 };
