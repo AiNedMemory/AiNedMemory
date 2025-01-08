@@ -30,7 +30,7 @@ jobs:
       - name: Build website
         run: npm run build
       - name: Install doxygen
-        run: apt install doxygen
+        run: sudo apt install doxygen
       - name: Build doxygen
         run: make -C ../Software/doxygen
       - name: Copy build
