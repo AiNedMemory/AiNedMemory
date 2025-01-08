@@ -1,0 +1,6 @@
+# Reset to initial state and print this.
+restore initial-state
+set 7 7 1
+set 6 6 0
+commit
+print

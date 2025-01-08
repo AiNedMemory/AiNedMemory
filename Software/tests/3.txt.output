@@ -1,0 +1,11 @@
+Found: 32 dipoles.
+Command: # clear memory and print it
+Got command: '# clear memory and print it'
+Command: restore initial-state
+Got command: 'restore initial-state'
+Restore memory content from file: 'initial-state'
+Command: set 7 7 1
+Got command: 'set 7 7 1'
+Command: set 15 15 1
+Cannot set bit in more then one word in a single commit.
+Got command: 'set 15 15 1'

@@ -1,0 +1,5 @@
+# clear memory and print it
+restore initial-state
+set 7 7 0
+commit
+print

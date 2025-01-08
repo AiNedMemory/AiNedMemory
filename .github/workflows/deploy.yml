@@ -29,6 +29,12 @@ jobs:
         run: npm install
       - name: Build website
         run: npm run build
+      - name: Install doxygen
+        run: apt install doxygen
+      - name: Build doxygen
+        run: make -C ../Software/doxygen
+      - name: Copy build
+        run: cp -r ../Software/documentation build/doxygen
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
