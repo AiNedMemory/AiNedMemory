@@ -18,6 +18,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          submodules: 'true'
           fetch-depth: 0
       - uses: actions/setup-node@v4
         with:
@@ -30,11 +31,11 @@ jobs:
       - name: Build website
         run: npm run build
       - name: Install doxygen
-        run: sudo apt install doxygen
+        run: sudo apt install -y doxygen
       - name: Build doxygen
         run: make -C ../Software/doxygen
       - name: Copy build
-        run: cp -r ../Software/documentation build/doxygen
+        run: cp -r ../Software/documentation/html build/doxygen
 
       - name: Upload Build Artifact
         uses: actions/upload-pages-artifact@v3
