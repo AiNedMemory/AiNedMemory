@@ -57,22 +57,39 @@ static void print_coeffs(ained_t *handle,
 static void update_coeffs_euclidian(ained_t *handle, const char *memory
                                     __attribute__((unused))) {
   const char *value = memory + strlen("update_coeffs_euclidian") + 1;
+  ained_coeff_t index = AINED_COEFF_HIGH;
+  if (strncmp(value, "high", 4) == 0) {
+    value += 5;
+  } else if (strncmp(value, "low", 3) == 0) {
+    value += 4;
+    index = AINED_COEFF_LOW;
+  }
+
   double factor = 0.7;
   if ((*value) != 0) {
     factor = strtod(value, NULL);
   }
-  printf("Update coefficients euclidian with factor: %0.2f\n", factor);
-  ained_set_coefficients_euclidean(handle, factor);
+  printf("Update coefficients %s euclidian with factor: %0.2f\n",
+         index == AINED_COEFF_HIGH ? "high" : "low", factor);
+  ained_set_coefficients_euclidean(handle, factor, index);
 }
 static void update_coeffs_manhattan(ained_t *handle, const char *memory
                                     __attribute__((unused))) {
   const char *value = memory + strlen("update_coeffs_manhattan") + 1;
+  ained_coeff_t index = AINED_COEFF_HIGH;
+  if (strncmp(value, "high", 4) == 0) {
+    value += 5;
+  } else if (strncmp(value, "low", 3) == 0) {
+    value += 4;
+    index = AINED_COEFF_LOW;
+  }
   double factor = 0.7;
   if ((*value) != 0) {
     factor = strtod(value, NULL);
   }
-  printf("Update coefficients manhattan with factor: %0.2f\n", factor);
-  ained_set_coefficients_manhattan(handle, factor);
+  printf("Update coefficients %s manhattan with factor: %0.2f\n",
+         index == AINED_COEFF_HIGH ? "high" : "low", factor);
+  ained_set_coefficients_manhattan(handle, factor, index);
 }
 /**
  * Clear memory.
@@ -186,24 +203,34 @@ typedef struct {
   const char *command;
   /** Pointer to function to handle the command */
   void (*exec)(ained_t *, const char *arg);
+  /** Help message */
+  const char *help;
 
 } Commands;
 
 void help_list(ained_t *handle, const char *memory);
 Commands character_names[] = {
-    {.command = "quit", .exec = NULL},
-    {.command = "print", .exec = print_memory},
-    {.command = "info", .exec = print_info},
-    {.command = "coeffs", .exec = print_coeffs},
-    {.command = "update_coeffs_euclidian", .exec = update_coeffs_euclidian},
-    {.command = "update_coeffs_manhattan", .exec = update_coeffs_manhattan},
-    {.command = "commit", .exec = commit_memory},
-    {.command = "set", .exec = set_memory},
-    {.command = "clear", .exec = clear_memory},
-    {.command = "store", .exec = store_memory},
-    {.command = "restore", .exec = restore_memory},
-    {.command = "test", .exec = test_memory},
-    {.command = "help", .exec = help_list},
+    {.command = "quit", .exec = NULL, .help = "quit"},
+    {.command = "print", .exec = print_memory, .help = "print"},
+    {.command = "info", .exec = print_info, .help = "info"},
+    {.command = "coeffs", .exec = print_coeffs, .help = "coeffs"},
+    {.command = "update_coeffs_euclidian",
+     .exec = update_coeffs_euclidian,
+     .help = "update_coeffs_euclidian <high|low> <factor>"},
+    {.command = "update_coeffs_manhattan",
+     .exec = update_coeffs_manhattan,
+     .help = "update_coeffs_manhattan <high|low> <factor>"},
+    {.command = "commit", .exec = commit_memory, .help = "commit"},
+    {.command = "set",
+     .exec = set_memory,
+     .help = "set <row> <column> <value>"},
+    {.command = "clear", .exec = clear_memory, .help = "clear"},
+    {.command = "store", .exec = store_memory, .help = "store <filename>"},
+    {.command = "restore",
+     .exec = restore_memory,
+     .help = "restore <filename>"},
+    {.command = "test", .exec = test_memory, .help = "test method"},
+    {.command = "help", .exec = help_list, .help = "this help message"},
     {NULL}};
 static char **character_name_completion(const char *text,
                                         int start __attribute__((unused)),
@@ -216,7 +243,7 @@ void help_list(ained_t *handle __attribute__((unused())),
                const char *memory __attribute__((unused()))) {
   printf("Commands:\n");
   for (int i = 0; character_names[i].command != NULL; i++) {
-    printf(" * %s\n", character_names[i].command);
+    printf(" * %s\n", character_names[i].help);
   }
   printf("\n");
 }

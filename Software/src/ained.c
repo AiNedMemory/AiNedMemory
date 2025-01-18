@@ -515,7 +515,21 @@ void ained_print_coefficients(ained_t *handle) {
   }
   uint32_t *reg = (uint32_t *)handle->registers;
   coeffs cfs = *((coeffs *)&reg[AINED_REG_COEFF_0]);
-  printf("Right bottom quadrant of the coefficient matrix.\n\n");
+  printf("Right bottom quadrant of the coefficient high matrix.\n\n");
+
+  printf("  1.00  ");
+  for (uint32_t i = 0; i < 4; i++) {
+    printf("%.2f  ", cfs.fields[i] / 255.0);
+  }
+  for (uint32_t j = 0; j < 4; j++) {
+    printf("\n  ");
+    for (uint32_t i = 4 + j * 5; i < (9 + (j * 5)); i++) {
+      printf("%.2f  ", cfs.fields[i] / 255.0);
+    }
+  }
+  printf("\n\n");
+  cfs = *((coeffs *)&reg[AINED_REG_COEFF_6]);
+  printf("Right bottom quadrant of the coefficient low matrix.\n\n");
 
   printf("  1.00  ");
   for (uint32_t i = 0; i < 4; i++) {
@@ -530,7 +544,8 @@ void ained_print_coefficients(ained_t *handle) {
   printf("\n\n");
 }
 
-void ained_set_coefficients_euclidean(ained_t *handle, const float factor) {
+void ained_set_coefficients_euclidean(ained_t *handle, const float factor,
+                                      const ained_coeff_t co_index) {
   coeffs cfs;
   uint32_t *reg = (uint32_t *)handle->registers;
 
@@ -545,9 +560,12 @@ void ained_set_coefficients_euclidean(ained_t *handle, const float factor) {
       }
     }
   }
-  *((coeffs *)&reg[AINED_REG_COEFF_0]) = cfs;
+  printf("set %d\n", co_index);
+  *((coeffs *)&reg[(co_index == AINED_COEFF_HIGH) ? AINED_REG_COEFF_0
+                                                  : AINED_REG_COEFF_6]) = cfs;
 }
-void ained_set_coefficients_manhattan(ained_t *handle, const float factor) {
+void ained_set_coefficients_manhattan(ained_t *handle, const float factor,
+                                      const ained_coeff_t co_index) {
   coeffs cfs;
   uint32_t *reg = (uint32_t *)handle->registers;
 
@@ -562,5 +580,7 @@ void ained_set_coefficients_manhattan(ained_t *handle, const float factor) {
       }
     }
   }
-  *((coeffs *)&reg[AINED_REG_COEFF_0]) = cfs;
+  printf("set %d\n", co_index);
+  *((coeffs *)&reg[(co_index == AINED_COEFF_HIGH) ? AINED_REG_COEFF_0
+                                                  : AINED_REG_COEFF_6]) = cfs;
 }

@@ -78,6 +78,16 @@
 typedef struct ained ained_t;
 
 /**
+ * Indicate high/low probability coefficient.
+ */
+typedef enum {
+  /** The High coefficient */
+  AINED_COEFF_HIGH = 0,
+  /** The Low coefficient */
+  AINED_COEFF_LOW = 1,
+} ained_coeff_t;
+
+/**
  * Opens access to the AiNed FPGA implementation and creates a handle.
  * The handle needs to be free'ed with #ained_destroy.
  *
@@ -266,6 +276,7 @@ uint32_t ained_get_coefficients(ained_t *handle, uint32_t index);
 /**
  * @param handle The handle to the AiNed module.
  * @param factor The fall off factor.
+ * @param co_index The coefficient set to check.
  *
  * Update the coefficients table based on euclidean distance from the center
  * (0,0) and the target, given the specified `factor`.
@@ -273,11 +284,13 @@ uint32_t ained_get_coefficients(ained_t *handle, uint32_t index);
  *     value_{r,c} = factor^{distance_{r,c}}
  * \f]
  **/
-void ained_set_coefficients_euclidean(ained_t *handle, const float factor);
+void ained_set_coefficients_euclidean(ained_t *handle, const float factor,
+                                      const ained_coeff_t co_index);
 
 /**
  * @param handle The handle to the AiNed module.
  * @param factor The fall off factor.
+ * @param co_index The coefficient set to check.
  *
  * Update the coefficients table based on manhattan distance from the center
  * (0,0) and the target, given the specified `factor`.
@@ -285,7 +298,8 @@ void ained_set_coefficients_euclidean(ained_t *handle, const float factor);
  *     value_{r,c} = factor^{distance_{r,c}}
  * \f]
  **/
-void ained_set_coefficients_manhattan(ained_t *handle, const float factor);
+void ained_set_coefficients_manhattan(ained_t *handle, const float factor,
+                                      const ained_coeff_t co_index);
 
 /**
  * @param handle The handle to the AiNed module.
